@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件绑定</title>
+	</head>
+	<div id="app">
+		<div >
+			{{num}}
+			<br>
+			<button @click="num++">增加1</button>
+			<button @click="add2(100)">增加函数</button>
+		</div>
+	</div>
+	<body>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			const a=new Vue({
+				el:"#app",
+				data:{
+					hello:'hello js and vue',
+					hello1:'<h3>这是一个h3的标签</h3>',
+					name:'双向数据绑定的使用',
+					num:10
+				},
+				methods:{
+					add(){
+						this.num++
+					},
+					add2(num){
+						this.num=this.num+num
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

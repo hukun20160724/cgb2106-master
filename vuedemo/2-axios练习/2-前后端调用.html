@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>前后端调用</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 基本用法 1、引入js库
+			2、发起axios请求，之后业务处理-->
+			<input type="button" value="get请求" class="get">
+
+		</div>
+
+
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios.js"></script>
+		<script>
+			let url = "http://localhost:82/axios/getById/1" //方式1：直接带参数
+			// js为了简化用户调用方法提供了箭头函数写法
+			axios.get(url)
+				.then(result => { //回调函数，接收数据，
+					//要想获得服务器数据，要使用data属性
+					console.log(result.data)
+				})
+			//模板字符串的写法
+			let sex2 = "女"
+			let age = 18
+			//let url1="http://localhost:82/axios/getNA/"
+			let url2 = `http://localhost:82/axios/user/${sex2}/${age}` //方式2；reatful风格
+			axios.get(url2)
+				.then(result => { //回调函数，接收数据，
+					//要想获得服务器数据，要使用data属性
+					console.log(result.data)
+				})
+
+			/* 
+			需求三：王昭君，女，18
+			 以对象的方式传参
+			 语法：{params:xxx}
+			 */
+			let user = {
+				name: "王昭君",
+				sex: "女",
+				age: 19
+			}
+			let url3 = `http://localhost:82/axios/getuser/` //方式3：对象的方式传参
+			axios.get(url3, {
+					params: user
+				})
+				.then(result => { //回调函数，接收数据，
+					//要想获得服务器数据，要使用data属性
+					console.log(result.data)
+				})
+				/* delete请求 */
+		</script>
+	</body>
+</html>

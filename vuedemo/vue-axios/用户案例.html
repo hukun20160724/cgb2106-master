@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>案例练习</title>
+		<link ref="stylesheet" href="../css/table.css" type="text/css" charset="UTF-8"/>
+		<style type="text/css"> 
+		body{
+			background-color: #FFDEE9;
+			background-image: linear-gradient(0deg, #FFDEE9 63%, #B5FFFC 100%);
+
+		}
+			table {
+				border-collapse: collapse;
+				margin: 0 auto;
+				text-align: center;
+			}
+			
+			table td,
+			table th {
+				border: 1px solid #cad9ea;
+				color: #666;
+				height: 30px;
+			}
+			
+			table thead th {
+				background-color: #CCE8EB;
+				width: 100px;
+			}
+			
+			table tr:nth-child(odd) {
+				background: #fff;
+			}
+			
+			table tr:nth-child(even) {
+				background: #F5FAFA;
+			}
+			button{
+				
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 新增div -->
+			<div align="center" >
+				<h3>用户新增</h3>
+				姓名: <input type="text" v-model="addUser.name" />
+				年龄: <input type="text" v-model="addUser.age" />
+				性别: <input type="text" v-model="addUser.sex"/>
+				<button @click="addMe">新增</button>
+			</div>
+			<hr />
+			<!-- 修改div -->
+			<div align="center">
+				<h3>用户修改</h3>
+				
+					编号: <input type="text" v-model="updateUser.id" disabled />
+					姓名: <input type="text" v-model="updateUser.name"/>
+					年龄: <input type="text" v-model="updateUser.age" />
+					性别: <input type="text" v-model="updateUser.sex" />		
+					<button @click="updateMe">修改</button>
+				
+
+			</div>
+			<hr />
+			<!-- 展现div -->
+			<div>
+				<table border="1px" align="center" width="80%">
+					<tr align="center">
+						<th colspan="5">
+							<h3>用户列表</h3>
+						</th>
+					</tr>
+					<tr align="center">
+						<th>编号</th>
+						<th>姓名</th>
+						<th>年龄</th>
+						<th>性别</th>
+						<th>操作</th>
+					</tr>
+					<tr align="center" v-for="user in list">
+						<td v-text="user.id"></td>
+						<td v-text="user.name"></td>
+						<td v-text="user.age"></td>
+						<td v-text="user.sex"></td>
+						<th width="20%">
+							<!-- 定义了一个修改的按钮，需要传入的参数就是这个 user -->
+							<button @click="updateBtn(user)">修改</button>
+							<button @click="deleteBtn(user)">删除</button>
+						</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!-- 1.引入类库 vue/axios -->
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios.js"></script>
+
+		<!-- 2.创建vue对象 -->
+		<script>
+			//设定axios请求前缀
+			axios.defaults.baseURL = "http://localhost:82/vue"
+			const app = new Vue({
+				el: "#app",
+				data: {
+					list:[],
+					addUser:{
+						name:'',
+						age:'',
+						sex:''
+					},
+					updateUser:{
+						id:'',
+						name:'',
+						age:'',
+						sex:''
+					}
+
+				},
+				methods: {
+					getUserList() {
+						 axios.get("/findAll").then(result=>{
+							 this.list=result.data
+						 })
+						
+					},
+					//添加信息，传入的参数就是我们输入的值，作为参数传给后台
+					addMe(){
+						axios.post("/addUser",this.addUser).then(result=>{
+							//添加成功之后，我们需要再次刷新数据列表
+							this.addUser={}
+							alert("添加数据成功、")
+							this.getUserList()
+						})
+					},
+					// 修改操作
+					//在点击了修改按钮之后，我们需要讲参数传递给上面的框框
+					updateBtn(user){
+						// 传过去的参数是user
+						//数据的回显功能
+						this.updateUser=user
+					},
+					updateMe(){
+						axios.put("/updateUser",this.updateUser).then(result=>{
+							this.updateUser={}
+							this.getUserList()
+						})
+					},
+					deleteBtn(user){
+						let id=user.id
+						axios.delete("deleteUser?id=" + id).then(result=>{
+							alert("删除id为"+id+"的数据")
+							this.getUserList()
+						})
+					}
+					
+				},
+				//利用生命周期函数触发ajax
+				created() {
+					//alert("生命周期函数")
+					this.getUserList()
+				}
+			})
+		</script>
+	</body>
+</html>

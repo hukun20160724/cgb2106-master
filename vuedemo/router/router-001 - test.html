@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>这是路由的自己练习</title>
+	</head>
+	<body>
+		<!-- 2、准备一个渲染区，来显示我们的数据 -->
+		<div id="app">
+			<h1>这是路由案例的测试</h1>
+
+			<!-- 3、要给一个路由跳转的link，就是我们的路由标签 -->
+			<router-link to="/home">主页</router-link>
+			<!--  4、这是要路由的填充位，用来显示我们的路径点击之后可以先的东西的页面-->
+			<router-link to="/tiger">狮子的测试</router-link>
+			<router-view></router-view>
+		</div>
+
+		<template id="homeTem">
+			<div>
+				<h3>这是我的测试组件</h3>
+			</div>
+		</template>
+		<!-- //写tiger这个组件 -->
+		<template id="tigerTem">
+			<div>
+				<h2>这是tiger的显示东西</h2>
+				<img src="picture/catking.jpg" height="300px" />
+				<!-- tiger下面还有一个分类 给两个链接-->
+				<router-link to="/tiger/one">狮子的第一个老婆</router-link>
+				<router-link to="/tiger/two">狮子的第二个老婆</router-link>
+				<router-view></router-view>
+			</div>
+		</template>
+		<br>
+		<!-- 两个老婆的显示信息 -->
+		<template id="tigerOneTem">
+			<div>
+				<h2>我是tiger的第一个老婆</h2>
+				<img src="picture/catone.jpeg" height="300px" />
+			</div>
+		</template>
+		<template id="tigerTwoTem">
+			<div>
+				<h2>我是tiger的第二个老婆</h2>
+				<img src="picture/cattwo.jpeg" height="300px" />
+			</div>
+		</template>
+
+
+		<!-- 1、先引入我们的js文件,要注意我们这个，有顺序之分 -->
+		<script src="../js/vue.js"></script>
+		<script src="../js/vue-router.js"></script>
+
+		<script>
+			// 注册组件
+			let HomeCom = {
+				template: "#homeTem"
+			}
+			//注册tiger的组件
+			let TigerCom = {
+				template: "#tigerTem"
+			}
+			let TigerOneCom = {
+				template: "#tigerOneTem"
+			}
+			let TigerTwoCom = {
+				template: "#tigerTwoTem"
+			}
+			/*封装路由对象，里卖弄需要指定我们的路由的路径和定义组件的那个component的名字 */
+			let router = new VueRouter({
+				//指定组和路径的关系
+				routes: [{
+						path: "/home",
+						component: HomeCom
+					},
+					{
+						path: "/tiger",
+						component: TigerCom,
+						children: [{
+								path: "/tiger/one",
+								component: TigerOneCom
+							},
+							{
+								path: "/tiger/two",
+								component: TigerTwoCom
+							}
+						]
+					}
+				]
+			})
+
+
+			const app = new Vue({
+				el: "#app",
+				router
+			})
+		</script>
+	</body>
+</html>

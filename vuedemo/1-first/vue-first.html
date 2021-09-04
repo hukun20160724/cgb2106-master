@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>这是第二次入门案例的操作了----升级版</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 基本用法 -->
+			<h1>数据的双向绑定</h1>
+			<h2>{{hello}}</h2>
+		</div>
+		
+		
+		<script src="../js/vue.js"></script>
+		<!-- 
+		 1、var存在很大的安全性问题，没有作用域
+		 2、let 作用于var类似，有作用于概念
+		 3、const 定义常量
+		 -->
+		<script type="text/javascript">
+			
+			
+			const a=new Vue({
+				el:"#app",
+				data:{
+					hello:'hello js and vue'
+				}
+			})
+		</script>
+	</body>
+</html>

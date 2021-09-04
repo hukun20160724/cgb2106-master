@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>循环</title>
+	</head>
+	<div id="app">
+		<div v-for="item in animals">{{item}}</div>
+		<!-- 优化 -->
+		<br>
+		<div v-for="item in animals" v-text="item"></div>
+		<div v-for="item,index in animals">
+			<span v-text="index"></span>
+			======
+			<span v-text="item"></span>
+		</div>
+		<div >
+			<table border="1px" width="90%">
+				<tr align="center" v-for="u in user">
+					<td v-text="u.id">编号</td>
+					<td v-text="u.name"> 姓名</td>
+					<td v-text="u.age">年龄</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<body>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			const a=new Vue({
+				el:"#app",
+				data:{
+					animals:[
+						'🐱','🐕','🐟','🐖','🐏'],
+					user:[
+						{id: 1,name: '张三',age: 18},
+						{id: 1,name: '李四',age: 18}
+						],
+				},
+				
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

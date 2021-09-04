@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>全局组件的定义</title>
+	</head>
+	<body>
+		<!-- 定义渲染-->
+		<div id="app">
+			<!-- 需要使用组件，就在渲染去里面使用 
+			在使用标签时，默认都是小写字母，需要引入驼峰规则，就是用横线-->
+			<add-Num></add-Num>
+		</div>
+		<!-- 定义i模板标签语法 -->
+		
+		<template id="numTem">
+			<div >
+				<h3>我是一个组件</h3>
+				获取数值num:{{num}}
+			</div>
+			
+		</template>
+		<!-- 导入js -->
+		<script src="../js/vue.js"></script>
+		<!-- 定义全局组件 -->
+		<script>
+			// 组件名称和类容V
+			Vue.component("addNum",{
+				data() {
+					return{
+						//自定义属性
+						num:10
+					}
+				},
+				//页面标记
+				template:"#numTem"
+			
+				//方法
+				
+			})
+			//实例化vue对象
+			const app=new Vue({
+				el:"#app"
+				
+			})
+		</script>
+	</body>
+</html>

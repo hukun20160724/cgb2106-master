@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>分支结构</title>
+	</head>
+	<div id="app">
+		请输入成绩：{{score}}
+		<br>
+		等级：
+		<div v-if="score>=90">成绩为优秀</div>
+		<div v-else-if="score<90 && score>=80">成绩为良好</div>
+		<div v-else-if="score<80 && score>=70">成绩为中等</div>
+		<div v-else-if="score<70 && score>=60">成绩为及格</div>
+		<div v-else="score<60">继续努力</div>
+		<br>
+		<input type="text" v-model="score"/>
+	</div>
+	<body>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			const a=new Vue({
+				el:"#app",
+				data:{
+					score:0
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

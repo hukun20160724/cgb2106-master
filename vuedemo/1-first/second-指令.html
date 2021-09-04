@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>指令</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 基本用法 -->
+			<h1>数据的双向绑定</h1>
+			<h2>{{hello}}</h2>
+			<!-- v-text -->
+			<h2 v-text="hello"></h2>
+			<!-- v-html 渲染展现 -->
+			<h2 v-html="hello1"></h2>
+			双向数据绑定：
+			<br />
+			{{name}}
+			<br>
+			<input name="name" type="test" v-model="name" />
+			<br />
+			v-on指令
+			<br>
+			{{num}}
+			<button v-on:click="num++">增加1</button>
+			<button @click="num++">增加2</button>
+		</div>
+		
+		
+		<script src="../js/vue.js"></script>
+		<!-- 
+		 1、var存在很大的安全性问题，没有作用域
+		 2、let 作用于var类似，有作用于概念
+		 3、const 定义常量
+		 -->
+		<script type="text/javascript">
+			
+			
+			const a=new Vue({
+				el:"#app",
+				data:{
+					hello:'hello js and vue',
+					hello1:'<h3>这是一个h3的标签</h3>',
+					name:'双向数据绑定的使用',
+					num:0
+				},
+				methods:{
+					add(){
+						this.num++
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

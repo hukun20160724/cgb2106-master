@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>前后端调用----delete</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 基本用法 1、引入js库
+			2、发起axios请求，之后业务处理-->
+			<input type="button" value="get请求" class="get">
+			<h2>前后端调用----delete</h2>
+
+		</div>
+
+
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios.js"></script>
+		<script>
+			/* 根据主键删除数据 */
+			//let id = 232
+			let url = "http://localhost:82/axios/deleteById?id=235"
+			axios.delete(url).then(result=>{
+				console.log(result.data)
+			})
+			
+			let user={
+				id:231
+			}
+			let url2 = "http://localhost:82/axios/delete/"
+			axios.delete(url2,{params:user}).then(result=>{
+				console.log(result.data)
+			})
+		</script>
+	</body>
+</html>

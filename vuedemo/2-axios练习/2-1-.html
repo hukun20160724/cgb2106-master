@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>axios入门案例</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 基本用法 1、引入js库
+			2、发起axios请求，之后业务处理-->
+			<input type="button" value="get请求" class="get">
+			
+		</div>
+		
+		
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios.js"></script>
+		<script>
+			 axios.get("http://localhost:82/user/getAll")
+			 .then(function(result){
+				 //要想获得服务器数据，要使用data属性
+				 console.log(result.data)
+			 }),
+			 axios.get("http://localhost:82/user/findUserById?id=3")
+			 .then(function(result){//回调函数，接收数据，
+			 	//要想获得服务器数据，要使用data属性
+			 	console.log(result.data)
+			 }),
+			 // js为了简化用户调用方法提供了箭头函数写法
+			 axios.get("http://localhost:82/user/getById/3")
+			 .then(result =>{//回调函数，接收数据，
+			 	//要想获得服务器数据，要使用data属性
+			 	console.log(result.data)
+			 })
+		</script>
+	</body>
+</html>

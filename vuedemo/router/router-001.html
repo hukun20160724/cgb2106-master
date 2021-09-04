@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 准备一个渲染的区域 -->
+		<div id="app">
+
+			<h1>实现路由的案例</h1>
+			<!-- 定义路由的标签 -->
+			<!-- <a href="http://www.baidu.com">百度</a> -->
+			<!-- 1、路由标签 ，定义的是请求地址-->
+			<router-link to="/home">主页</router-link>
+			<router-link to="/welcome">主页</router-link>
+
+			<!-- 2、路由填充位 ,可以理解为 就是一个占位符，就是展现的位置，
+				就是我们下面定义的那个组件所要展现内容的地方-->
+			<router-view></router-view>
+
+		</div>
+		<!-- 这一个template，定义的就是我们那个router点击之后获得的内容，需要在下面进行一个定义 -->
+		<template id="homeTem">
+			<div>
+				<h1>home</h1>
+			</div>
+		</template>
+		<template id="welcomceTem">
+			<div>
+				<h1>welcomce</h1>
+			</div>
+		</template>
+
+
+		<!-- 导入js，这个存在顺序 -->
+		<script src="../js/vue.js"></script>
+		<script src="../js/vue-router.js"></script>
+		<script>
+			/* 定义组件,这个组件定义之后，前面应该有一个组件存在 */
+			let HomeCom = {
+				template: "#homeTem"
+			}
+			let WelcomeCom = {
+				template: "#welcomceTem"
+			}
+			/*3、封装路由对象，里卖弄需要指定我们的路由的路径和定义组件的那个component的名字 */
+			let router = new VueRouter({
+				// 定义请求于组件的映射关系
+				routes: [{
+						path: "/home",
+						component: HomeCom
+					},
+					{
+						path: "/welcome",
+						component: WelcomeCom
+					}
+				]
+			})
+			/* 实现路由对象的绑定 ，绑定的是渲染区为app的
+				绑定路由的时候，封装路由的对象和我们绑定的这个关键字是一样的时候，
+				就直接只用写封装路由的名字就好了
+			*/
+			const app = new Vue({
+				el: "#app",
+				// 需要绑定路由,就是那个封装路由的名字，如果两个名字一样，就写router
+				router
+			})
+		</script>
+
+	</body>
+</html>

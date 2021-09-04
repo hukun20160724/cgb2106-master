@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jt.mapper.UserMapper">
+    <!--Oracle中 ;号必定报错  不要加;号
+        resultType:
+            1.如果有别名包则自动拼接  com.jt.pojo.User
+            2.如果根据别名找不到,则使用默认规则
+     -->
+    <select id="findAll" resultType="User">
+        select *
+        from demo_user
+    </select>
+
+    <insert id="addAll">
+        insert into demo_user(id, name, age, sex)
+        values (null, #{name}, #{age}, #{sex})
+    </insert>
+
+    <update id="upda">
+        update demo_user
+        set name=#{namenew}
+        <where>
+            name = #{nameold}
+        </where>
+    </update>
+
+    <delete id="dele">
+        delete
+        from demo_user
+        <where>
+            name = #{name}
+        </where>
+    </delete>
+
+    <select id="findXiao" resultType="com.jt.pojo.User">
+        select *
+        from demo_user
+        <where>
+            name = #{name}
+                    and sex = #{sex}
+        </where>
+    </select>
+
+    <select id="findFemale" resultType="com.jt.pojo.User">
+        select *
+        from demo_user
+        <where>
+            <if test="sex != null">
+                sex = #{sex}
+            </if>
+            <if test="age != null">
+                and age &gt;= #{age}
+            </if>
+        </where>
+    </select>
+
+    <select id="findJun" resultType="com.jt.pojo.User">
+        select *
+        from demo_user
+        <where>
+            <if test="name != null">
+                name like #{name}
+            </if>
+        </where>
+    </select>
+
+    <select id="findNv" resultType="com.jt.pojo.User">
+        select *
+        from demo_user
+        <where>
+            <if test="sex != null">
+                sex = #{sex}
+            </if>
+        </where>
+        order by age desc
+    </select>
+
+    <!--驼峰规则说明:
+        Mybatis 功能1: 可以实现结果集与实体对象的映射!!!
+        对象与表 一一对应,
+        对象中的属性与表中的字段 一一对应.
+
+        User(userId,userName)
+        user表(user_id,user_name)
+        resultType: 不能映射.
+        resultMap:  自己手动编辑.
+        简化上述的操作: 引入驼峰规则.
+
+        思考:开启驼峰规则如下是否可以映射???
+             User(user_id,user_name)
+             user表(user_id,user_name)
+             字段user_id~~~userid~~~userId~~~~
+             setUserId(..)方法
+        规则: 如果开启驼峰规则,必须按照要求编辑否则报错
+    -->
+</mapper>

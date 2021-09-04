@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>表单数据提交</title>
+</head>
+<h1>这是一关于表单数据提交的demo</h1>
+<div id="app">
+    <form id="userForm" action="#">
+        <div>
+            <span>姓名:</span>
+            <span>
+                <input type="text" name="name" v-model="name"/>
+            </span>
+        </div>
+		<div>
+			<span>性别：</span>
+			<input type="radio" name="gender" value="男" id="man" v-model="gender"/>
+			<label for="man">男</label>
+			<input type="radio" name="gender" value="女" id="women" v-model="gender"/>
+			<label for="women">女</label>
+		</div>
+		<div>
+			<span>爱好：</span>
+			<input type="checkbox" name="hobbies" value="吃" v-model="hobbies"/>吃
+			<input type="checkbox" name="hobbies" value="喝" v-model="hobbies"/>喝
+			<input type="checkbox" name="hobbies" value="玩" v-model="hobbies"/>玩
+		</div>
+		<div >
+			<span>职业：</span>
+			<select name="occupation" v-model="occupation" multiple="true">
+				<option value="老师">老师</option>
+				<option value="工程">工程师</option>
+				<option value="大头">大头</option>
+			</select>
+		</div>
+		<div>
+		    <span>个人简介</span>
+		    <textarea name="userInfo" style="width: 200px;height: 50px;" v-model="userInfo"></textarea>
+		</div>
+       <input type="submit" v-on:click.prevent="submitForm"></input>
+    </form>
+</div>
+<body>
+<script src="../js/vue.js"></script>
+<script type="text/javascript">
+    const a = new Vue({
+        el: "#app",
+        data: {
+            name: '',
+            gender: '',
+            /* //多个数据定义时 应该使用数组 */
+            hobbies: [],
+            occupation: [],
+            userInfo: '这是一个关语表单提交的文本域的内容'
+        },
+        methods: {
+            submitForm() {
+                //数据提交
+                console.log("姓名:" + this.name)
+                console.log("性别:" + this.gender)
+                console.log('爱好:' + this.hobbies)
+                console.log('职业:' + this.occupation)
+                console.log('用户详情:' + this.userInfo)
+                console.log('封装好数据之后,可以使用ajax方式实现数据提交')
+            }
+        }
+    })
+</script>
+</body>
+</html>

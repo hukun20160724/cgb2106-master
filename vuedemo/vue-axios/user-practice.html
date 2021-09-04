@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户的vue案例练习</title>
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- add -->
+			<div id="" align="center">
+				<!-- //新增需要绑定 -->
+				<h3>用户新增</h3>
+				姓名：<input type="text" v-model.trim="addUser.name" />
+				年龄：<input type="number" v-model.number="addUser.age" />
+				性别：<input type="text" v-model.trim="addUser.sex" />
+				<button @click="addMe">新增</button>
+			</div>
+			<hr>
+			<!-- xiugai -->
+			<div id="" align="center">
+				<h3>用户修改</h3>
+				编号：<input type="number" v-model.number="updateUser.id" disabled />
+				姓名：<input type="text" v-model.trim="updateUser.name" />
+				年龄：<input type="number" v-model.number="updateUser.age" />
+				性别：<input type="text" v-model.trim="updateUser.sex" />
+				<!-- 当用户修改完成之后,点击提交按钮时发起ajax请求. -->
+				<button @click="updateUserMe">提交</button>
+			</div>
+			<hr>
+			<!-- show -->
+			<div id="">
+				<table border="1px" width="80%" align="center">
+					<tr align="center">
+						<th colspan="5">
+							<h3>用户列表</h3>
+						</th>
+					</tr>
+					<tr align="center">
+						<td>编号</td>
+						<td>姓名</td>
+						<td>年龄</td>
+						<td>性别</td>
+						<td>操作</td>
+					</tr>
+					<tr align="center" v-for="user in list">
+						<td v-text="user.id"></td>
+						<td v-text="user.name"></td>
+						<td v-text="user.age"></td>
+						<td v-text="user.sex"></td>
+						<td>
+							<!-- 为修改按钮添加点击事件 传递当前行对象 -->
+							<button @click="updateUserBtn(user)">修改</button>
+							<!-- 为当前user对象绑定点击事件 -->
+							<button @click="deleteUser(user)">删除</button>
+
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<script>
+			//vue的生命周期
+
+			new Vue({
+				el: '#app',
+				data: {
+					//显示合集
+					list: [],
+					//添加
+					addUser: {
+						name: '',
+						age: '',
+						sex: ''
+					},
+					//更新
+					updateUser: {
+						id: '',
+						name: '',
+						age: '',
+						sex: ''
+					}
+				},
+				//vue对象实例创建成功之后就会自动调用这个方法
+				//如果你想写的方法在舒适化的时候就被调用的话就要要用到created这个
+				/* created: function() {
+					this.getlist(); //这里定义这个方法，vue实例之后运行到这里就调用这个函数
+				}, */
+				methods: {
+					//1.定义getuserList方法 获取后台服务器数据
+					async getUserList() {
+						let {data: result} = await axios.get("http://localhost:82/vue/findAll")
+						//ajax调用之后,将数据给属性.
+						this.list = result
+
+					},
+					async addMe() {
+						//不需要返回值
+						await axios.post("http://localhost:82/vue/addUser", this.addUser)
+						//将列表页面重新刷新
+						this.getUserList()
+					},
+					async updateUserMe() {
+						await axios.put("http://localhost:82/vue/updateUser", this.updateUser)
+						//如果操作成功,则应该清空修改的对象
+						this.updateUser = {}
+						//如果操作成功,则重新获取列表信息
+						this.getUserList()
+						alert("修改操作成功!!!!")
+
+					},
+					//点击修改按钮时触发事件
+					updateUserBtn(user) {
+						//console.log(user)
+						//用户传递的User对象应该动态的传递给双向数据绑定的key updateUser
+						this.updateUser = user
+					},
+					//删除
+					async deleteUser(user) {
+						//console.log(user)
+						//只需要获取用户的ID 就可以完成删除的操作.
+						//方法选择 ?id=xx 拼接    |  restFul结构
+						let id = user.id
+						await axios.delete("http://localhost:82/vue/deleteUser?id=" + id)
+						alert("删除数据成功!!!")
+						//需要重新获取列表数据
+						this.getUserList()
+						/* await axios.delete(`/vue/deleteUser?id=${id}`) */
+					}
+				},
+				mounted() {
+					//console.log("vue对象实例化成功!!!!")
+					//初始化时调用getUserList()
+					this.getUserList()
+				}
+			});
+		</script>
+	</body>
+</html>

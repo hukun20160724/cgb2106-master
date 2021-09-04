@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>路由嵌套的机制</title>
+    <style type="text/css">
+        img {
+            height: 300px
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>江哥动物园</h1>
+    <router-link to="/tiger">老虎</router-link>
+    <router-link to="/lion">狮子</router-link>
+    <router-view></router-view>
+</div>
+<template id="tigerTem">
+    <div>
+        <h1>我是一只大猫咪</h1>
+        <img src="picture/catking.jpg"/>
+        <!-- 路由嵌套机制 -->
+        <router-link to="/tiger/one">皇后</router-link>
+        <router-link to="/tiger/two">皇贵妃</router-link>
+        <!-- 子集应该在该区域展现数据，定义展现 -->
+        <router-view></router-view>
+    </div>
+</template>
+<template id="tigerOneTem">
+    <div>
+        <h1>我是大猫咪的正宫</h1>
+        <img src="picture/catone.jpeg"/>
+    </div>
+</template>
+<template id="tigerTwoTem">
+    <div>
+        <h1>我是大猫咪的皇贵妃</h1>
+        <img src="./picture/cattwo.jpeg"/>
+    </div>
+</template>
+<template id="lionTem">
+    <div>
+        <h1>我是一只大狗狗</h1>
+        <img src="picture/dogking.jpeg" height="300px"/>
+        <br>
+        <router-link to="/lion/one">皇后</router-link>
+        <router-link to="/lion/two">皇贵妃</router-link>
+        <router-view></router-view>
+    </div>
+</template>
+<template id="lionOneTem">
+    <div>
+        <h1>我是大狗狗的正宫</h1>
+        <img src="./picture/dogone.jpeg"/>
+        <router-link to="/lion/one/one">孩子</router-link>
+        <router-link to="/lion/one/two">情人</router-link>
+        <router-view></router-view>
+    </div>
+</template>
+<template id="lionOneOneTem">
+    <div>
+        <h1>我是大狗狗的皇贵妃的孩子</h1>
+        <img src="./picture/dogoneone.jpeg"/>
+    </div>
+</template>
+<template id="lionOneTwoTem">
+    <div>
+        <h1>我是大狗狗的皇贵妃的情人</h1>
+        <img src="./picture/dogonetwo.jpeg"/>
+    </div>
+</template>
+<template id="lionTwoTem">
+    <div>
+        <h1>我是大狗狗的皇贵妃</h1>
+        <img src="./picture/dogtwo.jpeg"/>
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+    let tigerCom = {
+        template: "#tigerTem"
+    }
+    let tigerOneCom = {
+        template: "#tigerOneTem"
+    }
+    let tigerTwoCom = {
+        template: "#tigerTwoTem"
+    }
+
+
+    let lionCom = {
+        template: "#lionTem"
+    }
+    let lionOneCom = {
+        template: "#lionOneTem"
+    }
+    let lionOneOneCom = {
+        template: "#lionOneOneTem"
+    }
+    let lionOneTwoCom = {
+        template: "#lionOneTwoTem"
+    }
+
+    let lionTwoCom = {
+        template: "#lionTwoTem"
+    }
+    /* 如果需要在跟标签中跳转，就是卸载routes根目录下
+     如果需要进行父子的嵌套，则应该使用childre属性*/
+    let router = new VueRouter({
+        routes: [
+            /* 重定向，当我们用户重定向的时候，会自动跳转到lion的页面中 */
+            {
+                path: "/",
+                redirect: "/lion"
+            },
+            {
+                path: "/tiger",
+                component: tigerCom,
+                children: [{
+                    path: "/tiger/one",
+                    component: tigerOneCom
+                },
+                    {
+                        path: "/tiger/two",
+                        component: tigerTwoCom
+                    }
+                ]
+            },
+            {
+                path: "/lion",
+                component: lionCom,
+                children: [{
+                    path: "/lion/one",
+                    component: lionOneCom,
+                    children: [{
+                        path: "/lion/one/one",
+                        component: lionOneOneCom
+                    },
+                        {
+                            path: "/lion/one/two",
+                            component: lionOneTwoCom
+                        }
+                    ]
+                },
+                    {
+                        path: "/lion/two",
+                        component: lionTwoCom
+                    }
+                ]
+            },
+            //这个格式 是错的
+            /* {path: "/tiger/one",component: tigerOneCom},
+            {path: "/tiger/two",component: tigerTwoCom}, */
+
+        ]
+    })
+
+
+    const app = new Vue({
+        el: "#app",
+        router
+    })
+</script>
+
+
+</body>
+</html>

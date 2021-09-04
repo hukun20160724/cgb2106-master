@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>前后端调用----post</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 基本用法 1、引入js库
+			2、发起axios请求，之后业务处理-->
+			<input type="button" value="get请求" class="get">
+			<h2>前后端调用----put</h2>
+
+		</div>
+
+
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios.js"></script>
+		<script>
+			/*1、 封装为对象 */
+			let user={
+				id:237,
+				name:"小鬼当家",
+				age:4,
+				sex:"男"
+			}
+			let url="http://localhost:82/axios/editUser"
+			axios.put(url,user).
+			then( result=>{
+				console.log(result.data)
+			})
+			/* 根据名字更改 
+			name是小鬼当家的改为黑贞
+				如果有多个参数，并且重复，如何封装
+			restful+对象
+			*/
+		   let namewhere="小鬼当家"
+			let user2={
+				name:"黑贞",
+				age:188,
+				sex:"女"
+			}
+			//模板字符串，必须使用以下引号
+			let url2=`http://localhost:82/axios/editUserByName/${namewhere}`
+			axios.put(url2,user2).
+			then( result=>{
+				console.log(result.data)
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>局部组件的定义</title>
+	</head>
+	<body>
+		<!-- 定义渲染-->
+		<div id="app">
+			<!-- 需要使用组件，就在渲染去里面使用 
+			在使用标签时，默认都是小写字母，需要引入驼峰规则，就是用横线-->
+			<msg-com></msg-com>
+			<msg-com></msg-com>
+
+		</div>
+		<!-- 这是第二个渲染区，想获取第一个vue对象的值，获取失败 -->
+		<div id="app2">
+			<!-- 需要使用组件，就在渲染去里面使用 
+			在使用标签时，默认都是小写字母，需要引入驼峰规则，就是用横线-->
+			<msg-com></msg-com>
+		
+		</div>
+		<!-- 定义i模板标签语法 -->
+
+		<template id="msgTem">
+			<div>
+				<h3>我是第一个组件-----msgTem</h3>
+			</div>
+
+		</template>
+		<!-- 导入js -->
+		<script src="../js/vue.js"></script>
+		<!-- 定义全局组件 -->
+		<script>
+			// 组件名称和类容V
+			// 局部组件，只针对当前的vue对象有效
+			let msgCom = {
+				//需要数据就写data
+				template: "#msgTem"
+			}
+
+			//实例化vue对象
+			const app = new Vue({
+				el: "#app",
+				components: {
+					msgCom
+				}
+
+			})
+			//这是第二个vue对象
+			const app2 = new Vue({
+				el: "#app2"
+						
+			})
+		</script>
+	</body>
+</html>

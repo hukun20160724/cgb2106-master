@@ -85,7 +85,10 @@ export default {
 <!-- 防止组件冲突 -->
 <style lang="less" scoped>
 .login_container{
-  background-color: #2b4b6b;
+  
+  background-color: #4158D0;
+  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
   height: 100%;
 }
 

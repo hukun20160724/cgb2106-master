@@ -6,7 +6,7 @@
     <!-- 定义头标签 -->
     <el-header>
       <div>
-        <img src="../assets/images/logo.png" />
+
         <span>京淘电商后台管理系统</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
@@ -30,7 +30,7 @@
           collapse-transition	是否开启折叠动画 默认不要展现
           router 是否使用 vue-router 的模式，启用该模式会在激活导航时以 index 作为 path 进行路由跳转
         -->
-        <el-menu background-color="#2C3E50" text-color="#fff" active-text-color="#4094ff" unique-opened
+        <el-menu  text-color="#2634ff" active-text-color="#ff0313" unique-opened
         :collapse="isCollapse" :collapse-transition="isCollapseTransition" router  :default-active="defaultActive">
 
           <!-- 定义一级菜单 -->
@@ -124,7 +124,8 @@
 <!-- 防止样式重叠 -->
 <style lang="less" scoped>
   .el-header {
-    background-color: #2B4B6B;
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
     display: flex; //灵活的盒子容器
     justify-content: space-between; //左右对齐
     align-items: center; //文本元素居中对齐
@@ -143,15 +144,21 @@
   }
 
   .el-aside {
-    background-color: #2C3E50;
+
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
 
     .el-menu {
       border-right: none;
+      background-color: #4158D0;
+      background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)
     }
   }
 
   .el-main {
-    background-color: #EEEEEE;
+
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
   }
 
   .home-container {
@@ -166,7 +173,9 @@
   //定义折叠项
   .leftCollapse {
     //设定背景色
-    background-color: #708090;
+
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
     //定义字体大小
     font-size: 10px;
     //定义行高

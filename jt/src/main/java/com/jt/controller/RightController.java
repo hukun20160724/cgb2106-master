@@ -21,8 +21,10 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/rights")
 public class RightController {
+
     @Autowired
     private RightsService rightsService;
+
     /**
      * 请求路径 /rights/getRightsList
      * 请求类型 GET
@@ -30,8 +32,8 @@ public class RightController {
      * 响应数据 SysResult对象
      */
     @GetMapping("/getRightsList")
-    public SysResult getRightList(){
-        List<Rights> list=rightsService.getRightList();
+    public SysResult getRightList() {
+        List<Rights> list = rightsService.getRightList();
         return SysResult.success(list);
     }
 }
